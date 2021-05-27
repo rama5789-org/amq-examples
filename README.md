@@ -1,0 +1,1 @@
+# Red Hat CodeReady Studio v12.17.0.GA Workspace :
