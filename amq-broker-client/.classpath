@@ -7,5 +7,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="C:/MyProgramFiles/RedHat_Dev/amq-broker-7.7.0/lib/client/artemis-jms-client-all-2.13.0.redhat-00006.jar"/>
+	<classpathentry kind="lib" path="C:/MyProgramFiles/RedHat_Dev/amq-broker-7.7.0/lib/artemis-cli-2.13.0.redhat-00006.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

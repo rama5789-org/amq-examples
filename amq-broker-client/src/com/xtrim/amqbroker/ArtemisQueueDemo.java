@@ -14,6 +14,8 @@ import javax.jms.TextMessage;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
+import org.apache.activemq.artemis.util.ServerUtil;
+
 public class ArtemisQueueDemo {
 
 	private static final String AMQ_CF_INITIAL_KEY = "java.naming.factory.initial";
@@ -23,14 +25,14 @@ public class ArtemisQueueDemo {
 	private static final String AMQ_CF_VAL = "tcp://172.26.16.1:61616";
 	private static final String AMQ_LOOKUP_CF = "ConnectionFactory";
 
-	private static final String AMQ_Q_KEY = "queue.SampleQueues/q1";
-	private static final String AMQ_Q_VAL = "SampleQueues::q1";
-	private static final String AMQ_LOOKUP_Q = "SampleQueues/q1";
+	private static final String AMQ_Q_KEY = "queue.SampleQ";
+	private static final String AMQ_Q_VAL = "SampleQ";
+	private static final String AMQ_LOOKUP_Q = "SampleQ";
 
 	private static final String AMQ_CONN_USR = "admin";
 	private static final String AMQ_CONN_PWD = "Admin123$";
 
-	private static final int MSG_COUNT = 3;
+	private static final int MSG_COUNT = 6;
 
 	public static void main(final String[] args) throws Exception {
 
@@ -48,6 +50,7 @@ public class ArtemisQueueDemo {
 
 		try {
 			System.out.println("...... START ......");
+			System.out.println("Queue: " + queue.getQueueName());
 			// Message Producer
 			artemisQueueDemo.sendMessages(queue, session);
 
@@ -105,7 +108,7 @@ public class ArtemisQueueDemo {
 
 			// Send the Message
 			messageProducer.send(textMessage);
-			Thread.sleep(1000);
+			// Thread.sleep(1000);
 		}
 
 		return true;
@@ -118,13 +121,16 @@ public class ArtemisQueueDemo {
 
 		// Start the Connection
 		conn.start();
+		int connNode = ServerUtil.getServer(conn);
 
 		// Receive all the text messages
-		for (int i = 0; i < MSG_COUNT; i++) {
+		for (int i = 0; i < MSG_COUNT; i += 2) {
 			// Receive the Message
-			TextMessage messageReceived = (TextMessage) messageConsumer.receive(5000);
-			System.out.println("Received message: " + messageReceived.getText());
-			Thread.sleep(1000);
+			TextMessage messageReceived = (TextMessage) messageConsumer.receive(1000);
+			if (messageReceived != null) {
+				System.out.println("Got message: '" + messageReceived.getText() + "' from node " + connNode);
+				// Thread.sleep(1000);
+			}
 		}
 
 		return true;
