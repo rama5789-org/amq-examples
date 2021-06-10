@@ -10,16 +10,16 @@ import javax.jms.TextMessage;
 
 import org.jboss.ejb3.annotation.ResourceAdapter;
 
-@MessageDriven(name = "SampleQMDB", activationConfig = {
-        @ActivationConfigProperty(propertyName = "destinationLookup", propertyValue = "java:global/remoteContext/SampleQ"),
+@MessageDriven(name = "JMS_Q_SampleQ2MDB", activationConfig = {
+        @ActivationConfigProperty(propertyName = "destinationLookup", propertyValue = "queue/SampleQ2"),
         @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue"),
         @ActivationConfigProperty(propertyName = "user", propertyValue = "rama"),
         @ActivationConfigProperty(propertyName = "password", propertyValue = "Rama123$"),
         @ActivationConfigProperty(propertyName = "acknowledgeMode", propertyValue = "Auto-acknowledge") })
 @ResourceAdapter(value = "remote-artemis")
-public class HelloWorldQueueMDB implements MessageListener {
+public class HelloWorldQueueMDB2 implements MessageListener {
 
-    private static final Logger LOGGER = Logger.getLogger(HelloWorldQueueMDB.class.toString());
+    private static final Logger LOGGER = Logger.getLogger(HelloWorldQueueMDB2.class.toString());
 
     /**
      * @see MessageListener#onMessage(Message)
@@ -29,7 +29,7 @@ public class HelloWorldQueueMDB implements MessageListener {
         try {
             if (rcvMessage instanceof TextMessage) {
                 msg = (TextMessage) rcvMessage;
-                LOGGER.info("Received Message from queue 'SampleQ': " + msg.getText());
+                LOGGER.info("Received Message from queue 'jms.queue.SampleQ2': " + msg.getText());
             } else {
                 LOGGER.warning("Message of wrong type: " + rcvMessage.getClass().getName());
             }
