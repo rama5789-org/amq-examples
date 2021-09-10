@@ -25,7 +25,7 @@ public class HelloWorldMDBServletClient extends HttpServlet {
 
 	@Inject
 	@JMSConnectionFactory("java:/RemoteJmsXA")
-	@JMSPasswordCredential(userName = "rama", password = "Rama123$")
+	/* @JMSPasswordCredential(userName = "rama", password = "Rama123$") */
 	private JMSContext context;
 
 	@Resource(lookup = "java:global/remoteContext/SampleQ")

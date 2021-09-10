@@ -13,8 +13,8 @@ import org.jboss.ejb3.annotation.ResourceAdapter;
 @MessageDriven(name = "SampleQMDB", activationConfig = {
         @ActivationConfigProperty(propertyName = "destinationLookup", propertyValue = "java:global/remoteContext/SampleQ"),
         @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue"),
-        @ActivationConfigProperty(propertyName = "user", propertyValue = "rama"),
-        @ActivationConfigProperty(propertyName = "password", propertyValue = "Rama123$"),
+        /* @ActivationConfigProperty(propertyName = "user", propertyValue = "rama"),
+        @ActivationConfigProperty(propertyName = "password", propertyValue = "Rama123$"), */
         @ActivationConfigProperty(propertyName = "acknowledgeMode", propertyValue = "Auto-acknowledge") })
 @ResourceAdapter(value = "remote-artemis")
 public class HelloWorldQueueMDB implements MessageListener {
